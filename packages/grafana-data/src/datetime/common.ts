@@ -59,7 +59,7 @@ export const setTimeZoneResolver = (resolver: TimeZoneResolver) => {
  * @public
  */
 export const getTimeZone = <T extends TimeZoneOptions>(options?: T): TimeZone => {
-  if (options?.timeZone && !isEmpty(options.timeZone)) {
+  if (options?.timeZone && !isEmpty(options.timeZone) && options.timeZone !== 'default') {
     return options.timeZone;
   }
   return defaultTimeZoneResolver() ?? DefaultTimeZone;

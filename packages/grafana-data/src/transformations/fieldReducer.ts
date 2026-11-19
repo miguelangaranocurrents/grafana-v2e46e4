@@ -548,16 +548,19 @@ export function doStandardCalcs(field: Field, ignoreNulls: boolean, nullAsZero: 
           }
         }
 
-        if (currentValue > calcs.max) {
-          calcs.max = currentValue;
-        }
+        // Number fields can carry stray non-numeric values (e.g. a reduced text column); skip them for min/max
+        if (typeof currentValue === 'number') {
+          if (currentValue > calcs.max) {
+            calcs.max = currentValue;
+          }
 
-        if (currentValue < calcs.min) {
-          calcs.min = currentValue;
-        }
+          if (currentValue < calcs.min) {
+            calcs.min = currentValue;
+          }
 
-        if (currentValue < calcs.logmin && currentValue > 0) {
-          calcs.logmin = currentValue;
+          if (currentValue < calcs.logmin && currentValue > 0) {
+            calcs.logmin = currentValue;
+          }
         }
       }
 
